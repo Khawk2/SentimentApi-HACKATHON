@@ -1,0 +1,30 @@
+# Global / OS
+.DS_Store
+Thumbs.db
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.iml
+
+# Logs (globales)
+*.log
+
+# Environment variables
+.env
+.env.*
+*.local
+
+# Git internals (por seguridad)
+.gitmodules
+
+# Temporary / swap files
+*.tmp
+*.swp
+*.swo
+
+# Archives (accidentales)
+*.zip
+*.tar
+*.tar.gz
+*.rar

@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.pytest_cache/
+
+# Virtual environments
+env/
+venv/
+.venv/
+*.egg-info/
+
+# Environment variables
+.env
+.env.*
+*.local
+
+# Jupyter / notebooks (NO van a producción)
+notebooks/
+.ipynb_checkpoints/
+
+# Data / training artifacts (si existen)
+data/
+datasets/
+*.csv
+*.tsv
+
+# Logs
+*.log
+
+# IDEs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Tests (si no se ejecutan en Docker)
+tests/

@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Maven / Gradle build outputs
+target/
+build/
+out/
+.mvn/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Env files
+.env
+.env.*
+*.local
+
+# Tests (si no se ejecutan en Docker)
+src/test/
+test/
+
+# Documentation
+README.md
+
+# Temporary files
+*.tmp
+*.swp
+

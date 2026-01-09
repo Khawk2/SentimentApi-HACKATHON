@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# Vite / build local
+dist
+.vite
+
+# Env (no deben ir a la imagen)
+.env
+.env.*
+*.local
+
+# IDEs / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Tests / coverage
+coverage
+*.test.*
+*.spec.*
+
+# Docs
+README.md

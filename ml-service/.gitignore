@@ -1,0 +1,35 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+.venv/
+*.egg-info/
+
+# Env
+.env
+.env.*
+*.local
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+.pytest_cache/
+coverage/
