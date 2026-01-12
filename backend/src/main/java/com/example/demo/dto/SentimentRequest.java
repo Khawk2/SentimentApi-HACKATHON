@@ -11,4 +11,11 @@ public class SentimentRequest {
     @Size(min = 1, message = "El texto debe tener al menos 1 carácter")
     private String text;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

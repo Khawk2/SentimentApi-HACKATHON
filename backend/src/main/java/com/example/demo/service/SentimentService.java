@@ -6,7 +6,8 @@ import com.example.demo.dto.SentimentResponse;
 import com.example.demo.model.SentimentAnalysis;
 import com.example.demo.repository.SentimentAnalysisRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,11 +22,13 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class SentimentService {
+
+    private static final Logger log = LoggerFactory.getLogger(SentimentService.class);
 
     private final SentimentAnalysisRepository repository;
     private final RestTemplate restTemplate;
+    private final TranslationService translationService;
 
     @Value("${ml.service.url:http://localhost:8000}")
     private String mlServiceUrl;
@@ -34,8 +37,12 @@ public class SentimentService {
         log.info("Analizando sentimiento para texto: {}", request.getText().substring(0, Math.min(50, request.getText().length())));
 
         try {
+            // Traducir el texto al español antes de procesar
+            String textoTraducido = translationService.translateToSpanish(request.getText());
+            log.debug("Texto traducido: {}", textoTraducido.substring(0, Math.min(50, textoTraducido.length())));
+
             log.debug("Enviando petición a ML service: {}", mlServiceUrl + "/predict");
-            log.debug("Body de la petición: text={}", request.getText());
+            log.debug("Body de la petición: text={}", textoTraducido);
 
             // Preparar headers
             HttpHeaders headers = new HttpHeaders();
@@ -44,7 +51,7 @@ public class SentimentService {
 
             // Crear el body como Map para serialización JSON
             Map<String, String> requestBody = new HashMap<>();
-            requestBody.put("text", request.getText());
+            requestBody.put("text", textoTraducido);
 
             // Crear HttpEntity con headers y body
             HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
@@ -66,9 +73,9 @@ public class SentimentService {
             // Mapear las etiquetas del ML service (Bueno/Malo/Regular) a las esperadas por el sistema (Positivo/Negativo/Neutro)
             String mappedPrevision = mapSentimentLabel(mlResponse.getPrevision());
 
-            // Guardar en base de datos
+            // Guardar en base de datos (guardar texto original y traducido)
             SentimentAnalysis analysis = new SentimentAnalysis();
-            analysis.setText(request.getText());
+            analysis.setText(request.getText()); // texto original
             analysis.setPrevision(mappedPrevision);
             analysis.setProbabilidad(mlResponse.getProbabilidad());
             repository.save(analysis);

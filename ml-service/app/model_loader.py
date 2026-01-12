@@ -5,6 +5,7 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+
 MODEL_PATH = Path("model", "modelo_sentimientos_2025.pkl")
 VECTORIZER_PATH = Path("model", "vectorizador_tfidf.pkl")
 
