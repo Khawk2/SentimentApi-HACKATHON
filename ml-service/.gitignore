@@ -6,8 +6,10 @@ __pycache__/
 .Python
 
 # Virtual environments
+venv-*/
 env/
 venv/
+venv-311
 .venv/
 *.egg-info/
 

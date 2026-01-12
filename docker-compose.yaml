@@ -9,11 +9,11 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
     networks:
       - sentiment-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -28,7 +28,7 @@ services:
     networks:
       - sentiment-network
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"]
+      test: [ "CMD-SHELL", "curl -f http://localhost:8000/health || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -49,6 +49,7 @@ services:
       - 'POSTGRES_PASSWORD=${POSTGRES_PASSWORD}'
       - 'POSTGRES_PORT=${POSTGRES_PORT}'
       - 'ML_SERVICE_URL=${ML_SERVICE_URL}'
+      - 'GEMINI_KEY=${GEMINI_KEY}'
     depends_on:
       postgres:
         condition: service_healthy

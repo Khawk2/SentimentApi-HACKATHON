@@ -5,6 +5,9 @@ API REST desarrollada con Spring Boot para el análisis de sentimientos de texto
 ## Características
 
 - Análisis de sentimientos de texto mediante integración con servicio ML
+- Traducción automática con Google Gemini 2.5 Flash Lite
+- Soporte multilingüe automático
+- Sistema de caché para traducciones
 - Almacenamiento persistente de análisis en PostgreSQL
 - Estadísticas de análisis realizados
 - Documentación API con Swagger/OpenAPI
@@ -25,9 +28,11 @@ API REST desarrollada con Spring Boot para el análisis de sentimientos de texto
 - **Java 21**
 - **PostgreSQL** - Base de datos
 - **Spring Data JPA** - Persistencia de datos
+- **Google Gemini AI** - Traducción inteligente
 - **Lombok** - Reducción de código boilerplate
 - **SpringDoc OpenAPI** - Documentación de API
 - **Spring Actuator** - Monitoreo y métricas
+- **Spring Validation** - Validación de inputs
 - **Docker** - Containerización
 
 ## Instalación
@@ -55,14 +60,6 @@ Editar `src/main/resources/application.properties` con tus credenciales de Postg
 spring.datasource.url=jdbc:postgresql://localhost:5432/sentimentApi
 spring.datasource.username=tu_usuario
 spring.datasource.password=tu_contraseña
-```
-
-### 4. Configurar el servicio ML (opcional)
-
-Si el servicio de Machine Learning está en una URL diferente, configúrala en `application.properties`:
-
-```properties
-ml.service.url=http://localhost:8000
 ```
 
 ## Ejecución
@@ -101,7 +98,7 @@ docker run -p 8080:8080 sentiment-api
 
 **POST** `/api/sentiment`
 
-Analiza el sentimiento de un texto y lo almacena en la base de datos.
+Analiza el sentimiento de un texto en cualquier idioma, lo traduce automáticamente al español y lo almacena en la base de datos.
 
 **Request Body:**
 ```json
@@ -144,6 +141,18 @@ Obtiene estadísticas sobre los análisis realizados.
 
 ### 3. Obtener Estado del servicio Sentiment API
 
+**GET** `/api/health`
+
+Verifica el estado de salud del servicio.
+
+**Response:**
+```json
+{
+  "status": "UP",
+  "service": "Sentiment Api"
+}
+```
+
 
 
 
@@ -159,7 +168,7 @@ Una vez que la aplicación esté ejecutándose, puedes acceder a la documentaci�
 La aplicación crea automáticamente la tabla `sentiment_analysis` con la siguiente estructura:
 
 - `id` (Long) - Identificador único
-- `text` (String) - Texto analizado
+- `text` (String) - Texto original analizado
 - `prevision` (String) - Sentimiento predicho (Positivo/Negativo/Neutro)
 - `probabilidad` (Double) - Probabilidad de la predicción
 - `created_at` (Timestamp) - Fecha y hora de creación
@@ -174,6 +183,7 @@ Puedes configurar la aplicación mediante variables de entorno:
 - `SPRING_DATASOURCE_USERNAME` - Usuario de PostgreSQL
 - `SPRING_DATASOURCE_PASSWORD` - Contraseña de PostgreSQL
 - `ML_SERVICE_URL` - URL del servicio de Machine Learning (por defecto: http://localhost:8000)
+- `GEMINI_KEY` - API key de Google Gemini para traducción
 - `SERVER_PORT` - Puerto del servidor (por defecto: 8080)
 
 ### Logging
@@ -198,6 +208,9 @@ mvn test
 - El servicio ML debe exponer un endpoint `/predict` que acepte JSON con el campo `text`
 - La respuesta del servicio ML debe incluir los campos `prevision` (Bueno/Malo/Regular) y `probabilidad`
 - El sistema mapea automáticamente las etiquetas del ML service a Positivo/Negativo/Neutro
+- **Traducción Automática**: Los textos en cualquier idioma se traducen automáticamente al español usando Google Gemini 2.5 Flash Lite
+- **Caching**: Las traducciones se almacenan en caché para optimizar el rendimiento
+- **Fallback**: En caso de fallo de traducción, se usa el texto original
 
 ## Contribuir
 
