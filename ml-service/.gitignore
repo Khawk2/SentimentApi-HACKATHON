@@ -9,6 +9,7 @@ __pycache__/
 venv-*/
 env/
 venv/
+venv-311
 .venv/
 *.egg-info/
 

@@ -12,7 +12,6 @@ Thumbs.db
 
 # Environment variables
 .env
-.env.*
 *.local
 
 # Git internals (por seguridad)
