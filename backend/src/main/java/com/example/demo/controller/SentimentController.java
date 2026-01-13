@@ -24,6 +24,7 @@ public class SentimentController {
     private final SentimentService sentimentService;
     private final StatsService statsService;
 
+    //localhost:8080/api/sentiment
     @PostMapping("/sentiment")
     public ResponseEntity<SentimentResponse> analyzeSentiment(
             @Valid @RequestBody SentimentRequest request) {
@@ -43,7 +44,7 @@ public class SentimentController {
         return ResponseEntity.ok(stats);
     }
 
-    //localhost:080/api/stats
+    //localhost:080/api/health
     @GetMapping("/health")
     public ResponseEntity<Map<String, String>> health(){
         return ResponseEntity.ok(Map.of("status", "UP", "service", "Sentiment Api"));
