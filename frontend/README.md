@@ -121,8 +121,10 @@ El backend ya tiene configurado CORS para permitir peticiones desde el frontend.
 
 ## Licencia
 
-Este proyecto fue desarrollado como parte de un hackathon.
+Proyecto desarrollado para el **Hackathon One** - Clasificación de Sentimientos
 
-## Autor
+## Equipo
 
-- Equipo de desarrollo. Desarrollado para Hackathon One - Clasificación de Sentimientos
+- **Data Science:** Modelo y análisis de datos
+- **Backend:** API REST e integración de servicios
+- **Frontend:** Interfaz de usuario y experiencia
