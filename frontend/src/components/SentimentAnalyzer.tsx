@@ -198,7 +198,7 @@ const SentimentAnalyzer = () => {
               sentiment: 'Positivo',
             },
             {
-              text: 'El producto llegó en buen estado',
+              text: 'normal el producto',
               sentiment: 'Neutro',
             },
             {
