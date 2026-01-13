@@ -222,12 +222,10 @@ mvn test
 
 ## Licencia
 
-Este proyecto fue desarrollado como parte de un hackathon.
+Proyecto desarrollado para el **Hackathon One** - Clasificación de Sentimientos
 
-## Autores
+## Equipo
 
-- Equipo de desarrollo. Desarrollado para Hackathon One - Clasificación de Sentimientos
-
----
-
-**Versión:** 0.0.1-SNAPSHOT
+- **Data Science:** Modelo y análisis de datos
+- **Backend:** API REST e integración de servicios
+- **Frontend:** Interfaz de usuario y experiencia
