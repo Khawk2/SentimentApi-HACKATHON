@@ -37,16 +37,17 @@ const SentimentAnalyzer = () => {
     }
   }
 
+  // MODIFICADO: Agregué las variantes dark para los colores de las etiquetas
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case 'Positivo':
-        return 'bg-green-100 text-green-800 border-green-300'
+        return 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800'
       case 'Negativo':
-        return 'bg-red-100 text-red-800 border-red-300'
+        return 'bg-red-100 text-red-800 border-red-300 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800'
       case 'Neutro':
-        return 'bg-gray-100 text-gray-800 border-gray-300'
+        return 'bg-gray-100 text-gray-800 border-gray-300 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600'
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-300'
+        return 'bg-gray-100 text-gray-800 border-gray-300 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600'
     }
   }
 
@@ -64,18 +65,20 @@ const SentimentAnalyzer = () => {
   }
 
   const getProbabilityColor = (prob: number) => {
-    if (prob >= 0.7) return 'text-green-600'
-    if (prob >= 0.5) return 'text-yellow-600'
-    return 'text-orange-600'
+    if (prob >= 0.7) return 'text-green-600 dark:text-green-400'
+    if (prob >= 0.5) return 'text-yellow-600 dark:text-yellow-400'
+    return 'text-orange-600 dark:text-orange-400'
   }
 
   return (
     <div className="space-y-6">
       {/* Input Section */}
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
+      {/* Agregamos dark:bg-slate-800 dark:border-slate-700 */}
+      <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 dark:bg-slate-800 dark:border-slate-700 transition-colors">
         <label
           htmlFor="text-input"
-          className="block text-sm font-medium text-slate-700 mb-2"
+          // Agregamos dark:text-slate-300
+          className="block text-sm font-medium text-slate-700 mb-2 dark:text-slate-300"
         >
           Ingresa el texto a analizar
         </label>
@@ -85,19 +88,20 @@ const SentimentAnalyzer = () => {
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Escribe aquí el texto que deseas analizar... Ejemplo: 'Excelente servicio, muy recomendado'"
-          className="w-full h-32 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          // Agregamos dark:bg-slate-900 dark:border-slate-600 dark:text-white dark:placeholder-slate-500
+          className="w-full h-32 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-slate-900 dark:border-slate-600 dark:text-white dark:placeholder-slate-500"
           disabled={loading}
         />
         <div className="mt-3 flex items-center justify-between">
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Presiona Ctrl + Enter para analizar
           </p>
-          <p className="text-xs text-slate-500">{text.length} caracteres</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{text.length} caracteres</p>
         </div>
         <button
           onClick={handleAnalyze}
           disabled={loading || !text.trim()}
-          className="mt-4 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md"
+          className="mt-4 w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md dark:disabled:bg-slate-700 dark:disabled:text-slate-500"
         >
           {loading ? (
             <>
@@ -115,21 +119,24 @@ const SentimentAnalyzer = () => {
 
       {/* Error Message */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-          <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={20} />
+        // Agregamos dark:bg-red-900/20 dark:border-red-800
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 dark:bg-red-900/20 dark:border-red-800">
+          <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5 dark:text-red-400" size={20} />
           <div>
-            <h3 className="text-red-800 font-medium">Error</h3>
-            <p className="text-red-700 text-sm mt-1">{error}</p>
+            <h3 className="text-red-800 font-medium dark:text-red-300">Error</h3>
+            <p className="text-red-700 text-sm mt-1 dark:text-red-400">{error}</p>
           </div>
         </div>
       )}
 
       {/* Result Section */}
       {result && (
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 animate-fade-in">
+        // Agregamos dark:bg-slate-800 dark:border-slate-700
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 animate-fade-in dark:bg-slate-800 dark:border-slate-700">
           <div className="flex items-center gap-3 mb-4">
-            <CheckCircle2 className="text-green-600" size={24} />
-            <h2 className="text-xl font-semibold text-slate-800">
+            <CheckCircle2 className="text-green-600 dark:text-green-500" size={24} />
+            {/* Agregamos dark:text-white */}
+            <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
               Resultado del Análisis
             </h2>
           </div>
@@ -148,9 +155,10 @@ const SentimentAnalyzer = () => {
             </div>
 
             {/* Probability */}
-            <div className="bg-slate-50 rounded-lg p-4">
+            {/* Agregamos dark:bg-slate-900/50 */}
+            <div className="bg-slate-50 rounded-lg p-4 dark:bg-slate-900/50">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-slate-600">
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                   Nivel de Confianza
                 </span>
                 <span
@@ -161,7 +169,8 @@ const SentimentAnalyzer = () => {
                   {(result.probabilidad * 100).toFixed(1)}%
                 </span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-3">
+              {/* Agregamos dark:bg-slate-700 */}
+              <div className="w-full bg-slate-200 rounded-full h-3 dark:bg-slate-700">
                 <div
                   className={`h-3 rounded-full transition-all ${
                     result.probabilidad >= 0.7
@@ -176,19 +185,22 @@ const SentimentAnalyzer = () => {
             </div>
 
             {/* Original Text */}
-            <div className="bg-slate-50 rounded-lg p-4">
-              <p className="text-sm font-medium text-slate-600 mb-2">
+            {/* Agregamos dark:bg-slate-900/50 */}
+            <div className="bg-slate-50 rounded-lg p-4 dark:bg-slate-900/50">
+              <p className="text-sm font-medium text-slate-600 mb-2 dark:text-slate-400">
                 Texto Analizado
               </p>
-              <p className="text-slate-800 italic">"{text}"</p>
+              {/* Agregamos dark:text-slate-300 */}
+              <p className="text-slate-800 italic dark:text-slate-300">"{text}"</p>
             </div>
           </div>
         </div>
       )}
 
       {/* Example Texts */}
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-4">
+      {/* Agregamos dark:bg-slate-800 dark:border-slate-700 */}
+      <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
+        <h3 className="text-lg font-semibold text-slate-800 mb-4 dark:text-white">
           Ejemplos para Probar
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -209,12 +221,13 @@ const SentimentAnalyzer = () => {
             <button
               key={idx}
               onClick={() => setText(example.text)}
-              className="text-left p-3 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors"
+              // Agregamos dark:bg-slate-900 dark:border-slate-700 dark:hover:bg-slate-800
+              className="text-left p-3 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors dark:bg-slate-900 dark:border-slate-700 dark:hover:bg-slate-800"
             >
-              <p className="text-sm text-slate-700 italic mb-1">
+              <p className="text-sm text-slate-700 italic mb-1 dark:text-slate-300">
                 "{example.text}"
               </p>
-              <p className="text-xs text-slate-500">Esperado: {example.sentiment}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-500">Esperado: {example.sentiment}</p>
             </button>
           ))}
         </div>
@@ -224,4 +237,3 @@ const SentimentAnalyzer = () => {
 }
 
 export default SentimentAnalyzer
-
