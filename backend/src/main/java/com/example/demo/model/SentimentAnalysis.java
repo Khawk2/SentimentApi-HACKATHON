@@ -33,5 +33,4 @@ public class SentimentAnalysis {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-
 }
