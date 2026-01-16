@@ -12,6 +12,7 @@ public class SentimentControllerTest {
         assertTrue(texto.matches("\\d+"), "El texto contiene solo números");
     }
 
+
     @Test
     void textoValido_retornaOk() {
         // Test simple - verifica que el texto sea válido
@@ -21,4 +22,3 @@ public class SentimentControllerTest {
     }
 }
 
-    
