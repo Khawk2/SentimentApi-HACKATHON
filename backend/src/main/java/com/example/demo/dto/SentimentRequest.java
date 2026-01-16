@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 public class SentimentRequest {
+
     @NotBlank(message = "El campo 'text' es obligatorio")
-    @Size(min = 1, message = "El texto debe tener al menos 1 carácter")
+    @Size(min = 2, message = "El texto debe tener al menos 3 caracteres")
     private String text;
+
 }
