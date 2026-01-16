@@ -20,5 +20,3 @@ public class SentimentControllerTest {
         assertTrue(texto.length() > 0, "El texto no está vacío");
     }
 }
-
-    
