@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SentimentResponse {
-
     private String prevision;
     private Double probabilidad;
 }

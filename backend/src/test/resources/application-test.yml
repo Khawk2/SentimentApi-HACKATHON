@@ -9,4 +9,4 @@ spring:
       ddl-auto: create-drop
     show-sql: false
 
-GEMINI_KEY: AIzaSyBrvtBbgBZmwfNloQ5epk4-PYtf_IBfUtE
+GEMINI_KEY: AIzaSyDeP12Bom9dT_zPuFN5ivJu2QYcsNaXLVw
