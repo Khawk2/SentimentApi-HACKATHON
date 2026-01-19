@@ -19,6 +19,19 @@ public class SentimentControllerTest {
         assertFalse(texto.matches("\\d+"), "El texto no contiene solo números");
         assertTrue(texto.length() > 0, "El texto no está vacío");
     }
-}
 
+    @Test
+    void textoNoEntendible_debeSerRechazado() {
+        String[] frasesSinSentido = {[]
+
+        };
+
+        for (String texto : frasesSinSentido) {
+
+            // para caracteres repetidos
+            boolean esValido = texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s.,!?]+$") && !texto.matches(".*(.)\\1{3,}.*");
+            // que se valide frase escrita
+            assertTrue(esValido, "La frase '" + texto + "' debería haber sido rechazada por el sistema");
+        }
+    }
     
