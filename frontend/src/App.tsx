@@ -3,6 +3,7 @@ import SentimentAnalyzer from './components/SentimentAnalyzer'
 import StatsDashboard from './components/StatsDashboard'
 import { ThemeToggle } from './components/ThemeToggle'
 import { BarChart3, MessageSquare } from 'lucide-react'
+import SentimentLogo from './components/HackathonLogo'
 
 function App() {
   const [activeTab, setActiveTab] = useState<'analyze' | 'stats'>('analyze')
@@ -17,12 +18,13 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div>
             {/* Agregamos dark:text-white */}
-            <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
-              📊 Análisis de Sentimientos
+            <h1 className="text-3xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+              <SentimentLogo size={40} />
+              Sentiment API – Análisis Inteligente de Sentimientos para Empresas
             </h1>
             {/* dark:text-slate-400 */}
             <p className="text-slate-600 mt-1 dark:text-slate-400">
-              Clasifica textos en español como Positivo, Neutro o Negativo
+              Clasifica textos en mas de 50 idiomas como Positivo, Neutro o Negativo
             </p>
           </div>
           {/* Botón del Modo Oscuro */}

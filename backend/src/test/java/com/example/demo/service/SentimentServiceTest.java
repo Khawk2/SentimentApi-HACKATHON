@@ -48,8 +48,9 @@ class SentimentServiceTest {
         );
     }
 
+
     @Test
-    void analyzeSentiment_successful_returnsPositive() {
+    void analizarSentimiento_exitoso_retornaPositivo() {
         // GIVEN
         SentimentRequest request = new SentimentRequest();
         request.setText("This is a great product");

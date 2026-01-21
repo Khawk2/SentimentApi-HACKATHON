@@ -15,9 +15,17 @@ export interface SentimentRequest {
   text: string
 }
 
+export interface InfluentialWord {
+  word: string
+  importance: number
+  sentiment: 'positivo' | 'negativo' | 'neutro'
+}
+
 export interface SentimentResponse {
   prevision: 'Positivo' | 'Negativo' | 'Neutro'
   probabilidad: number
+  palabrasInfluyentes: InfluentialWord[]
+  explicacion: string
 }
 
 export interface StatsResponse {
