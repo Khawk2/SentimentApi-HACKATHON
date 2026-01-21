@@ -3,6 +3,7 @@ package com.example.demo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -10,4 +11,6 @@ import lombok.NoArgsConstructor;
 public class SentimentResponse {
     private String prevision;
     private Double probabilidad;
+    private List<InfluentialWord> palabrasInfluyentes;
+    private String explicacion;
 }

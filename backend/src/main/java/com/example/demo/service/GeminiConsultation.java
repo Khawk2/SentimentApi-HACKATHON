@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +20,6 @@ public class GeminiConsultation {
         this.client = new Client.Builder()
                 .apiKey(apiKey)
                 .build();
-    }
-
-    // constructor SOLO para tests
-    GeminiConsultation(Client client) {
-        this.client = client;
     }
 
     public String traducirAlEspanol(String texto) {

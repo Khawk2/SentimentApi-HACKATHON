@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sentimentApi, SentimentResponse } from '../services/api'
 import { Loader2, Send, AlertCircle, CheckCircle2 } from 'lucide-react'
+import InfluentialWords from './InfluentialWords'
 
 const SentimentAnalyzer = () => {
   const [text, setText] = useState('')
@@ -9,21 +10,39 @@ const SentimentAnalyzer = () => {
   const [error, setError] = useState<string | null>(null)
 
   const handleAnalyze = async () => {
-    if (!text.trim()) {
+    const trimmedText = text.trim()
+    
+    // Limpiar resultados anteriores al iniciar un nuevo análisis
+    setResult(null)
+    setError(null)
+
+    if (!trimmedText) {
       setError('Por favor, ingresa un texto para analizar')
       return
     }
 
+    // Verificar si son solo números
+    if (/^\d+$/.test(trimmedText)) {
+      setError('No puedes escribir sólo números')
+      return
+    }
+
+    // Verificar si son solo caracteres especiales (sin letras)
+    if (!/[A-Za-zÁÉÍÓÚáéíóúÑñ]/.test(trimmedText)) {
+      setError('No puedes escribir sólo caracteres especiales')
+      return
+    }
+
     setLoading(true)
-    setError(null)
-    setResult(null)
 
     try {
-      const response = await sentimentApi.analyzeSentiment(text)
+      const response = await sentimentApi.analyzeSentiment(trimmedText)
       setResult(response)
     } catch (err: any) {
       setError(
+        err.response?.data?.detail ||
         err.response?.data?.message ||
+        err.response?.data?.error ||
           'Error al analizar el sentimiento. Por favor, intenta de nuevo.'
       )
     } finally {
@@ -32,7 +51,14 @@ const SentimentAnalyzer = () => {
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && e.ctrlKey) {
+    console.log('KeyPress:', e.key, 'Shift:', e.shiftKey, 'Code:', e.code)
+    if (e.key === 'Enter') {
+      if (e.shiftKey) {
+        // Permitir nueva línea con Shift+Enter
+        return
+      }
+      e.preventDefault() // Evita que se haga una nueva línea
+      console.log('Analizando texto...')
       handleAnalyze()
     }
   }
@@ -94,7 +120,7 @@ const SentimentAnalyzer = () => {
         />
         <div className="mt-3 flex items-center justify-between">
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Presiona Ctrl + Enter para analizar
+            Presiona Enter para analizar (Shift+Enter para nueva línea)
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400">{text.length} caracteres</p>
         </div>
@@ -130,7 +156,7 @@ const SentimentAnalyzer = () => {
       )}
 
       {/* Result Section */}
-      {result && (
+      {result && !error && (
         // Agregamos dark:bg-slate-800 dark:border-slate-700
         <div className="bg-white rounded-xl shadow-lg p-6 border border-slate-200 animate-fade-in dark:bg-slate-800 dark:border-slate-700">
           <div className="flex items-center gap-3 mb-4">
@@ -193,6 +219,12 @@ const SentimentAnalyzer = () => {
               {/* Agregamos dark:text-slate-300 */}
               <p className="text-slate-800 italic dark:text-slate-300">"{text}"</p>
             </div>
+
+            {/* Influential Words */}
+            <InfluentialWords 
+              words={result.palabrasInfluyentes || []} 
+              explanation={result.explicacion || ''} 
+            />
           </div>
         </div>
       )}

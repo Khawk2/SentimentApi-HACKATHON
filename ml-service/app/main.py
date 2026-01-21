@@ -45,6 +45,9 @@ async def predict(req: SentimentRequest):
 
     try:
         return model_service.predict(req.text)
+    except ValueError as ve:
+        # Handle validation errors (like pure numbers) with a better message
+        raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
-        logger.exception("ERROR REAL EN PREDICT")  # 👈 ESTO
-        raise HTTPException(status_code=500, detail=str(e))  # 👈 ESTO
+        logger.exception("ERROR REAL EN PREDICT")
+        raise HTTPException(status_code=500, detail="Error interno del servidor al procesar la predicción")
