@@ -39,11 +39,15 @@ const SentimentAnalyzer = () => {
       const response = await sentimentApi.analyzeSentiment(trimmedText)
       setResult(response)
     } catch (err: any) {
+      const backendError =
+          err.response?.data?.message ||
+          err.response?.data?.detail ||
+          err.response?.data?.error
+
       setError(
-        err.response?.data?.detail ||
-        err.response?.data?.message ||
-        err.response?.data?.error ||
-          'Error al analizar el sentimiento. Por favor, intenta de nuevo.'
+          typeof backendError === 'string'
+              ? backendError
+              : 'Error al analizar el sentimiento. Por favor, intenta de nuevo.'
       )
     } finally {
       setLoading(false)

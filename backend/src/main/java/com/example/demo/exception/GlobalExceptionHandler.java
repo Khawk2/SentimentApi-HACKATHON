@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 
@@ -66,7 +67,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse error = new ErrorResponse();
         error.setTimestamp(LocalDateTime.now());
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         error.setError("Bad Request");
         
         // Extraer el mensaje específico del ML Service si está disponible
@@ -79,7 +80,7 @@ public class GlobalExceptionHandler {
         
         error.setPath(request.getDescription(false).replace("uri=", ""));
 
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(HttpServerErrorException.class)
@@ -95,12 +96,13 @@ public class GlobalExceptionHandler {
         
         // Extraer el mensaje específico del ML Service si está disponible
         String message = ex.getResponseBodyAsString();
-        if (message.contains("No se pueden escribir solo números")) {
+
+        if (message != null && message.contains("No se pueden escribir solo números")) {
             error.setMessage("No se pueden escribir solo números. El texto debe contener al menos una letra.");
         } else {
-            error.setMessage("Error en el procesamiento del texto: " + message);
+            error.setMessage("Error en el procesamiento del texto.");
         }
-        
+
         error.setPath(request.getDescription(false).replace("uri=", ""));
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -137,4 +139,5 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
