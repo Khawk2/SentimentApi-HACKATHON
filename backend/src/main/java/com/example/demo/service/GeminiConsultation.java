@@ -21,9 +21,9 @@ public class GeminiConsultation {
     }
 
     // constructor SOLO para tests
-    GeminiConsultation(Client client) {
-        this.client = client;
-    }
+//    GeminiConsultation(Client client) {
+//        this.client = client;
+//    }
 
     public String traducirAlEspanol(String texto) {
         if (texto == null || texto.isBlank()) {
