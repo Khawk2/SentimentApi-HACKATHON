@@ -27,7 +27,7 @@ public class SentimentResponseTest {
     void ResultadoPositivo() {
         //Test simple - Verifica que se obtiene una respuesta positiva
         //Crear respuesta positiva para el usuario
-        SentimentResponse resultado = new SentimentResponse("Positivo", 0.95);
+        SentimentResponse resultado = new SentimentResponse("Positivo", 0.95, null, null);
 
         //Verificar estructura de la respuesta positiva para el usuario
         assertEquals("Positivo", resultado.getPrevision(),
@@ -42,7 +42,7 @@ public class SentimentResponseTest {
         //Test simple - Verifica que se obtiene una respuesta negativa
         //Crear respuesta negativa para el usuario
 
-        SentimentResponse resultado = new SentimentResponse("Negativo", 0.88);
+        SentimentResponse resultado = new SentimentResponse("Negativo", 0.88, null, null);
 
         assertEquals("Negativo", resultado.getPrevision(),
                 "📉 El usuario obtendrá un sentimiento negativo debido a que su texto es negativo.");
@@ -56,7 +56,7 @@ public class SentimentResponseTest {
         //Test simple - Verifica que se obtiene una respuesta neutra
         //Crear respuesta neutra para el usuario
 
-        SentimentResponse resultado = new SentimentResponse("Neutro", 0.45);
+        SentimentResponse resultado = new SentimentResponse("Neutro", 0.45, null, null);
 
         assertEquals("Neutro", resultado.getPrevision(),
                 "📊 El usuario obtendrá un sentimiento neutro debido a que su texto es neutro (ni positivo ni negativo).");

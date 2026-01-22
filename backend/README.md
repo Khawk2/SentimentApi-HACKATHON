@@ -107,6 +107,34 @@ Analiza el sentimiento de un texto en cualquier idioma, lo traduce automáticame
 }
 ```
 
+### Validación de Input Mejorada
+
+El sistema valida que:
+- El campo `text` exista en el request
+- El texto tenga longitud mínima de 1 caracter
+- El texto no contenga solo números (ej: "123")
+- El texto no contenga solo caracteres especiales (ej: "$$$", "@@@")
+- El texto no esté vacío después de limpiar espacios
+
+**Errores de Validación:**
+```json
+{
+  "error": "No puedes escribir sólo números"
+}
+```
+
+```json
+{
+  "error": "No puedes escribir sólo caracteres especiales"
+}
+```
+
+```json
+{
+  "error": "Por favor, ingresa un texto para analizar"
+}
+```
+
 **Response:**
 ```json
 {

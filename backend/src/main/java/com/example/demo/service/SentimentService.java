@@ -85,9 +85,15 @@ public class SentimentService {
 
             return new SentimentResponse(
                     mappedPrevision,
-                    mlResponse.getProbabilidad()
+                    mlResponse.getProbabilidad(),
+                    mlResponse.getPalabrasInfluyentes(),
+                    mlResponse.getExplicacion()
             );
 
+        } catch (org.springframework.web.client.HttpClientErrorException e) {
+            // Para errores 4xx del ML service (como validación)
+            log.error("Error de validación del ML service: {}", e.getMessage());
+            throw new RuntimeException(e.getResponseBodyAsString());
         } catch (Exception e) {
             log.error("Error al analizar sentimiento: {}", e.getMessage(), e);
             throw new RuntimeException("Error al procesar el análisis de sentimiento: " + e.getMessage(), e);

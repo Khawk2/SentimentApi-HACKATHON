@@ -72,6 +72,24 @@ Por defecto, el frontend se conecta a `http://localhost:8080`. Puedes cambiar es
 VITE_API_URL=http://localhost:8080
 ```
 
+## Validación de Input Mejorada
+
+El frontend implementa validación en tiempo real que:
+- El campo de texto no esté vacío
+- El texto no contenga solo números (ej: "123")
+- El texto no contenga solo caracteres especiales (ej: "$$$", "@@@q")
+- El texto contenga al menos una letra para ser válido
+
+**Mensajes de Error:**
+- "Por favor, ingresa un texto para analizar" (texto vacío)
+- "No puedes escribir sólo números" (solo números)
+- "No puedes escribir sólo caracteres especiales" (solo caracteres especiales)
+
+**Validación Frontend vs Backend:**
+- **Frontend**: Validación inmediata para mejor UX
+- **Backend**: Validación adicional como capa de seguridad
+- **Ambos**: Mensajes consistentes y claros
+
 ## Scripts Disponibles
 
 - `npm run dev`: Inicia el servidor de desarrollo

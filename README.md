@@ -242,13 +242,27 @@ frontend/
 
 El sistema valida que:
 - El campo `text` exista en el request
-- El texto tenga longitud mínima de 3 caracteres
-- El texto no exceda 1000 caracteres
+- El texto tenga longitud mínima de 1 caracter
+- El texto no contenga solo números (ej: "123")
+- El texto no contenga solo caracteres especiales (ej: "$$$", "@@@")
+- El texto no esté vacío después de limpiar espacios
 
-**Errores:**
+**Errores de Validación:**
 ```json
 {
-  "error": "El texto es requerido y debe tener entre 3 y 1000 caracteres"
+  "error": "No puedes escribir sólo números"
+}
+```
+
+```json
+{
+  "error": "No puedes escribir sólo caracteres especiales"
+}
+```
+
+```json
+{
+  "error": "Por favor, ingresa un texto para analizar"
 }
 ```
 
